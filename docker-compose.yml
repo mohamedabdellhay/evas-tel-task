@@ -1,0 +1,44 @@
+
+
+services:
+  
+  # Application Service
+  app:
+    build:
+      context: .
+      target: production
+    ports:
+      - '3000:3000'
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - MONGO_URI=mongodb://admin:password123@mongodb:27017/nest_db?authSource=admin
+    depends_on:
+      - redis
+      - mongodb
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
+  # Redis Service
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - '6379:6379'
+
+  # Database Service
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - '27017:27017'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password123
+      - MONGO_INITDB_DATABASE=nest_db
+    volumes:
+      - e_vas_task_db:/data/db
+
+volumes:
+  e_vas_task_db:
