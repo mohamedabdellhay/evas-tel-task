@@ -6,7 +6,7 @@ services:
   app:
     build:
       context: .
-      target: production
+      target: development
     ports:
       - '3000:3000'
     environment:
