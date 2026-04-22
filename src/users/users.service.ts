@@ -11,7 +11,7 @@ export class UsersService {
   ) {}
 
   async create(data: Partial<User>) {
-    console.log('data',data);
+    // console.log('data',data);
     return this.userModel.create(data);
   }
 

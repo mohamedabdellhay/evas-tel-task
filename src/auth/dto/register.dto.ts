@@ -8,12 +8,12 @@ export class RegisterDto {
     @IsNotEmpty()
     fullName: string;
 
-    @ApiProperty({ example: "abdellaziz@mail.com" })
+    @ApiProperty({ example: "mohamed@mail.com" })
     @IsEmail()
     @IsNotEmpty()
     email: string;
 
-    @ApiProperty({ example: "1234567" })
+    @ApiProperty({ example: "admin123" })
     @IsString()
     @IsNotEmpty()
     password: string;
