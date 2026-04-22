@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { getModelToken } from '@nestjs/mongoose';
-import { User } from '../user/schemas/user.schema';
+import { User } from '../users/schemas/user.schema';
 import { UnauthorizedException, BadRequestException } from '@nestjs/common';
 
 describe('AuthService', () => {

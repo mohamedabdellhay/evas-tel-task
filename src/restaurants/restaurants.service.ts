@@ -66,4 +66,8 @@ export class RestaurantsService {
     await this.cacheManager.set(cacheKey, availability, 60000);
     return availability;
   }
+
+  async restaurantExist(id: string) {
+    return this.restaurantModel.exists({ _id: id });
+  }
 }
