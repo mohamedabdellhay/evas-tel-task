@@ -1,8 +1,4 @@
-// roles.decorator.ts
-import { SetMetadata } from '@nestjs/common';
-export const Roles = (...roles: string[]) => SetMetadata('roles', roles);
 
-// roles.guard.ts
 import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
@@ -15,9 +11,13 @@ export class RolesGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
+   
+    
     if (!requiredRoles) return true;
 
     const { user } = context.switchToHttp().getRequest();
+    console.log('user',user);
+    
     const hasRole = requiredRoles.includes(user?.role);
     if (!hasRole) throw new ForbiddenException('Insufficient permissions');
     return true;

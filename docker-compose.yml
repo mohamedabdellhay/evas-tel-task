@@ -8,11 +8,11 @@ services:
       context: .
       target: development
     ports:
-      - '3000:3000'
+      - '${PORT}:${PORT}'
     environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - MONGO_URI=mongodb://admin:password123@mongodb:27017/nest_db?authSource=admin
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - MONGO_URI=${MONGO_URI}
     depends_on:
       - redis
       - mongodb
@@ -25,18 +25,18 @@ services:
     image: redis:alpine
     container_name: redis
     ports:
-      - '6379:6379'
+      - '${REDIS_PORT}:${REDIS_PORT}'
 
   # Database Service
   mongodb:
     image: mongo:latest
     container_name: mongodb
     ports:
-      - '27017:27017'
+      - '${MONGO_PORT}:${MONGO_PORT}'
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=password123
-      - MONGO_INITDB_DATABASE=nest_db
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
     volumes:
       - e_vas_task_db:/data/db
 

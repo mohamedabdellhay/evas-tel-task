@@ -21,6 +21,6 @@ export class RegisterDto {
     @ApiProperty({ example: "admin" })
     @IsString()
     @IsNotEmpty()
-    role: "admin" | "manager" | "cashier";
+    role: "admin" | "owner" | "cashier" | "user";
 }
 
