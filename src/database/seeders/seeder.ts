@@ -44,16 +44,6 @@ function resolveSeederMongoUri(config: ConfigService): string {
     resolvedUri = resolvedUri.replace('${DB_NAME}', dbName);
   }
 
-  try {
-    const parsedUri = new URL(resolvedUri);
-    if (parsedUri.hostname === 'mongodb') {
-      parsedUri.hostname = 'localhost';
-      return parsedUri.toString();
-    }
-  } catch {
-    // Keep original URI if parsing fails; mongoose will surface connection errors.
-  }
-
   return resolvedUri;
 }
 
