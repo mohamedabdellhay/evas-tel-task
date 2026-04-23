@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { CACHE_MANAGER } from '@nestjs/cache-manager'; 
 import { ReservationsService } from './reservations.service';
 import { getModelToken } from '@nestjs/mongoose';
 import { Reservation } from './schemas/reservation.schema';
@@ -9,7 +10,7 @@ describe('ReservationsService', () => {
   let service: ReservationsService;
 
   function mockReservationModel(dto: any) {
-    this.data = dto;
+    this.data = dto;  
     this.save = jest.fn().mockResolvedValue({ ...dto, _id: 'id' });
   }
   mockReservationModel.find = jest.fn().mockReturnValue({
@@ -28,6 +29,12 @@ describe('ReservationsService', () => {
     restaurantExist: jest.fn().mockResolvedValue(true),
   };
 
+  const mockCacheManager = {
+    get: jest.fn(),
+    set: jest.fn(),
+    del: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -43,6 +50,10 @@ describe('ReservationsService', () => {
         {
           provide: RestaurantsService,
           useValue: mockRestaurantsService,
+        },
+        {
+          provide: CACHE_MANAGER,
+          useValue: mockCacheManager,
         },
       ],
     }).compile();
@@ -67,4 +78,5 @@ describe('ReservationsService', () => {
     expect(mockUsersService.userExist).toHaveBeenCalledWith('u1');
     expect(mockRestaurantsService.restaurantExist).toHaveBeenCalledWith('r1');
   });
+  
 });
