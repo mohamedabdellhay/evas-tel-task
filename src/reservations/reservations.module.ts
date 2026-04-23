@@ -7,7 +7,9 @@ import { RestaurantsModule } from '../restaurants/restaurants.module';
 import { UsersModule } from '../users/users.module';
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Reservation.name, schema: ReservationSchema }]),
+    MongooseModule.forFeature([
+      { name: Reservation.name, schema: ReservationSchema },
+    ]),
     RestaurantsModule,
     UsersModule,
   ],

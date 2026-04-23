@@ -1,8 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ReservationsService } from './reservations.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
-import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { UseGuards } from '@nestjs/common';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
@@ -20,7 +34,10 @@ export class ReservationsController {
   @Post()
   @Roles('admin', 'owner', 'user')
   @ApiOperation({ summary: 'Create a new reservation' })
-  @ApiResponse({ status: 201, description: 'The reservation has been successfully created.' })
+  @ApiResponse({
+    status: 201,
+    description: 'The reservation has been successfully created.',
+  })
   create(@Body() createReservationDto: CreateReservationDto) {
     return this.reservationsService.create(createReservationDto);
   }
@@ -47,9 +64,15 @@ export class ReservationsController {
   @Roles('admin', 'owner', 'cashier')
   @ApiOperation({ summary: 'Update a reservation' })
   @ApiParam({ name: 'id', description: 'The ID of the reservation' })
-  @ApiResponse({ status: 200, description: 'The reservation has been successfully updated.' })
+  @ApiResponse({
+    status: 200,
+    description: 'The reservation has been successfully updated.',
+  })
   @ApiResponse({ status: 404, description: 'Reservation not found.' })
-  update(@Param('id') id: string, @Body() updateReservationDto: UpdateReservationDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateReservationDto: UpdateReservationDto,
+  ) {
     return this.reservationsService.update(id, updateReservationDto);
   }
 
@@ -57,7 +80,10 @@ export class ReservationsController {
   @Roles('admin', 'owner', 'cashier')
   @ApiOperation({ summary: 'Delete a reservation' })
   @ApiParam({ name: 'id', description: 'The ID of the reservation' })
-  @ApiResponse({ status: 200, description: 'The reservation has been successfully deleted.' })
+  @ApiResponse({
+    status: 200,
+    description: 'The reservation has been successfully deleted.',
+  })
   @ApiResponse({ status: 404, description: 'Reservation not found.' })
   remove(@Param('id') id: string) {
     return this.reservationsService.remove(id);

@@ -1,8 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
-import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { UseGuards } from '@nestjs/common';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
@@ -20,7 +34,10 @@ export class RestaurantsController {
   @Post()
   @Roles('admin', 'owner', 'user')
   @ApiOperation({ summary: 'Create a new restaurant' })
-  @ApiResponse({ status: 201, description: 'The restaurant has been successfully created.' })
+  @ApiResponse({
+    status: 201,
+    description: 'The restaurant has been successfully created.',
+  })
   create(@Body() createRestaurantDto: CreateRestaurantDto) {
     return this.restaurantsService.create(createRestaurantDto);
   }
@@ -45,7 +62,9 @@ export class RestaurantsController {
 
   @Get(':id/availability')
   @Roles('admin', 'owner', 'cashier')
-  @ApiOperation({ summary: 'Get restaurant availability (Redis cached, 60s TTL)' })
+  @ApiOperation({
+    summary: 'Get restaurant availability (Redis cached, 60s TTL)',
+  })
   @ApiParam({ name: 'id', description: 'The ID of the restaurant' })
   @ApiResponse({ status: 200, description: 'Returns cached availability' })
   @ApiResponse({ status: 404, description: 'Restaurant not found.' })
@@ -57,9 +76,15 @@ export class RestaurantsController {
   @Roles('admin', 'owner')
   @ApiOperation({ summary: 'Update a restaurant' })
   @ApiParam({ name: 'id', description: 'The ID of the restaurant' })
-  @ApiResponse({ status: 200, description: 'The restaurant has been successfully updated.' })
+  @ApiResponse({
+    status: 200,
+    description: 'The restaurant has been successfully updated.',
+  })
   @ApiResponse({ status: 404, description: 'Restaurant not found.' })
-  update(@Param('id') id: string, @Body() updateRestaurantDto: UpdateRestaurantDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateRestaurantDto: UpdateRestaurantDto,
+  ) {
     return this.restaurantsService.update(id, updateRestaurantDto);
   }
 
@@ -67,7 +92,10 @@ export class RestaurantsController {
   @Roles('admin', 'owner')
   @ApiOperation({ summary: 'Delete a restaurant' })
   @ApiParam({ name: 'id', description: 'The ID of the restaurant' })
-  @ApiResponse({ status: 200, description: 'The restaurant has been successfully deleted.' })
+  @ApiResponse({
+    status: 200,
+    description: 'The restaurant has been successfully deleted.',
+  })
   @ApiResponse({ status: 404, description: 'Restaurant not found.' })
   remove(@Param('id') id: string) {
     return this.restaurantsService.remove(id);

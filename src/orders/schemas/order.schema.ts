@@ -40,6 +40,9 @@ export class Order {
     required: true,
   })
   status: OrderStatus;
+
+  @Prop({ default: false })
+  isArchived: boolean;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
@@ -52,4 +55,7 @@ OrderSchema.index(
   },
 );
 
-OrderSchema.index({ waiterId: 1, createdAt: -1 }, { name: 'idx_waiter_history' });
+OrderSchema.index(
+  { waiterId: 1, createdAt: -1 },
+  { name: 'idx_waiter_history' },
+);

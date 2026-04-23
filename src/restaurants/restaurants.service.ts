@@ -10,7 +10,8 @@ import type { Cache } from 'cache-manager';
 @Injectable()
 export class RestaurantsService {
   constructor(
-    @InjectModel(Restaurant.name) private restaurantModel: Model<RestaurantDocument>,
+    @InjectModel(Restaurant.name)
+    private restaurantModel: Model<RestaurantDocument>,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
@@ -31,7 +32,10 @@ export class RestaurantsService {
     return restaurant;
   }
 
-  async update(id: string, updateRestaurantDto: UpdateRestaurantDto): Promise<Restaurant> {
+  async update(
+    id: string,
+    updateRestaurantDto: UpdateRestaurantDto,
+  ): Promise<Restaurant> {
     const updatedRestaurant = await this.restaurantModel
       .findByIdAndUpdate(id, updateRestaurantDto, { new: true })
       .exec();
@@ -42,7 +46,9 @@ export class RestaurantsService {
   }
 
   async remove(id: string): Promise<Restaurant> {
-    const deletedRestaurant = await this.restaurantModel.findByIdAndDelete(id).exec();
+    const deletedRestaurant = await this.restaurantModel
+      .findByIdAndDelete(id)
+      .exec();
     if (!deletedRestaurant) {
       throw new NotFoundException(`Restaurant with ID ${id} not found`);
     }
@@ -51,7 +57,10 @@ export class RestaurantsService {
 
   async getAvailability(id: string) {
     const cacheKey = `restaurant:${id}:availability`;
-    const cached = await this.cacheManager.get<{ isOpen: boolean; availableTables: number }>(cacheKey);
+    const cached = await this.cacheManager.get<{
+      isOpen: boolean;
+      availableTables: number;
+    }>(cacheKey);
     if (cached) return cached;
 
     const restaurant = await this.findOne(id);

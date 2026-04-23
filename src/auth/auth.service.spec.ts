@@ -88,9 +88,9 @@ describe('AuthService', () => {
         select: jest.fn().mockResolvedValue(mockUser),
       });
 
-      await expect(service.validateUser('test@test.com', 'wrong')).rejects.toThrow(
-        UnauthorizedException,
-      );
+      await expect(
+        service.validateUser('test@test.com', 'wrong'),
+      ).rejects.toThrow(UnauthorizedException);
     });
 
     it('should throw UnauthorizedException if user not found', async () => {
@@ -98,9 +98,9 @@ describe('AuthService', () => {
         select: jest.fn().mockResolvedValue(null),
       });
 
-      await expect(service.validateUser('none@test.com', 'password')).rejects.toThrow(
-        UnauthorizedException,
-      );
+      await expect(
+        service.validateUser('none@test.com', 'password'),
+      ).rejects.toThrow(UnauthorizedException);
     });
   });
 
@@ -109,7 +109,10 @@ describe('AuthService', () => {
       jest.spyOn(service, 'validateUser').mockResolvedValue(mockUser as any);
       mockJwtService.sign.mockReturnValue('token');
 
-      const result = await service.login({ email: 'test@test.com', password: 'password' });
+      const result = await service.login({
+        email: 'test@test.com',
+        password: 'password',
+      });
       expect(result).toEqual({ access_token: 'token' });
     });
   });

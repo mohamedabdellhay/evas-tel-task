@@ -55,8 +55,14 @@ describe('ReservationsService', () => {
   });
 
   it('should create a reservation if user and restaurant exist', async () => {
-    const dto = { userId: 'u1', restaurantId: 'r1', date: '2023-01-01', time: '12:00', partySize: 2 };
-    const result = await service.create(dto as any);
+    const dto = {
+      userId: 'u1',
+      restaurantId: 'r1',
+      date: '2023-01-01',
+      time: '12:00',
+      partySize: 2,
+    };
+    const result = await service.create(dto);
     expect(result).toBeDefined();
     expect(mockUsersService.userExist).toHaveBeenCalledWith('u1');
     expect(mockRestaurantsService.restaurantExist).toHaveBeenCalledWith('r1');

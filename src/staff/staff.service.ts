@@ -7,9 +7,7 @@ import { CreateStaffDto } from './dto/create-staff.dto';
 
 @Injectable()
 export class StaffService {
-  constructor(
-    @InjectModel(User.name) private userModel: Model<UserDocument>,
-  ) {}
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
   async create(dto: CreateStaffDto) {
     const existing = await this.userModel.findOne({ email: dto.email });

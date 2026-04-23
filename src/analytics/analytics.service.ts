@@ -28,12 +28,14 @@ export class AnalyticsService {
       {
         $group: {
           _id: { waiterId: '$waiterId', menuItemId: '$items.menuItemId' },
-          dishRevenue: { $sum: { $multiply: ['$items.price', '$items.quantity'] } },
+          dishRevenue: {
+            $sum: { $multiply: ['$items.price', '$items.quantity'] },
+          },
           dishCount: { $sum: '$items.quantity' },
         },
       },
 
-      // Step 4: Roll up per waiter 
+      // Step 4: Roll up per waiter
       {
         $group: {
           _id: '$_id.waiterId',
@@ -42,7 +44,10 @@ export class AnalyticsService {
             $topN: {
               n: 3,
               sortBy: { dishCount: -1 },
-              output: { menuItemId: '$_id.menuItemId', orderCount: '$dishCount' },
+              output: {
+                menuItemId: '$_id.menuItemId',
+                orderCount: '$dishCount',
+              },
             },
           },
         },
@@ -75,7 +80,7 @@ export class AnalyticsService {
         },
       },
 
-      // Step 8: Convert dishDetails array 
+      // Step 8: Convert dishDetails array
       {
         $project: {
           _id: 0,
@@ -86,7 +91,7 @@ export class AnalyticsService {
           signatureDishes: {
             $let: {
               vars: {
-                // Build { "<id>": "<name>", ... } 
+                // Build { "<id>": "<name>", ... }
                 nameMap: {
                   $arrayToObject: {
                     $map: {

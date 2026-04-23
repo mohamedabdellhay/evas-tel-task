@@ -4,10 +4,8 @@ import { Injectable } from '@nestjs/common';
 export class AppService {
   getHello() {
     return {
-      name: "Mohamed abdellhay",
+      name: 'Mohamed abdellhay',
       age: 26,
     };
   }
-
-
 }

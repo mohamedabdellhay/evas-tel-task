@@ -1,17 +1,17 @@
 /**
- * 
+ *
  * ######################################################################################
  * ##### This file was generated using AI for test the application "mohamedabdellhay". ########
  * ######################################################################################
- * 
+ *
  * Database Seeder
- * 
+ *
  * Seeds the database with:
  *  - 1 admin user
  *  - 5 staff members (cashiers/waiters)
  *  - 10 menu items
  *  - 100 orders distributed across staff, from the last 30 days
- * 
+ *
  * Run with: pnpm run seed
  */
 
@@ -24,8 +24,10 @@ import mongoose, { Model } from 'mongoose';
 import { User, UserSchema } from '../../users/schemas/user.schema';
 import { MenuItem, MenuItemSchema } from '../../menu/schemas/menu-item.schema';
 import { Order, OrderSchema } from '../../orders/schemas/order.schema';
-import { Restaurant, RestaurantSchema } from '../../restaurants/schemas/restaurant.schema';
-
+import {
+  Restaurant,
+  RestaurantSchema,
+} from '../../restaurants/schemas/restaurant.schema';
 
 function resolveSeederMongoUri(config: ConfigService): string {
   const seederOverride = config.get<string>('MONGO_URI_SEED');
@@ -62,7 +64,9 @@ function resolveSeederMongoUri(config: ConfigService): string {
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({ uri: resolveSeederMongoUri(config) }),
+      useFactory: (config: ConfigService) => ({
+        uri: resolveSeederMongoUri(config),
+      }),
     }),
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
@@ -84,7 +88,9 @@ function randomDate(daysAgo: number): Date {
   const now = new Date();
   const past = new Date();
   past.setDate(now.getDate() - daysAgo);
-  return new Date(past.getTime() + Math.random() * (now.getTime() - past.getTime()));
+  return new Date(
+    past.getTime() + Math.random() * (now.getTime() - past.getTime()),
+  );
 }
 
 function pick<T>(arr: T[]): T {
@@ -93,33 +99,40 @@ function pick<T>(arr: T[]): T {
 
 // ─── Seed data ────────────────────────────────────────────────────────────────
 const RESTAURANTS_DATA = [
-  { name: 'Abo tarek',    location: 'Giza',   capacity: 500 },
-  { name: 'Sara Ali',        location: 'Cairo',    capacity: 500 },
-  { name: 'Mohamed Tarek',   location: 'Alexandria', capacity: 500 },
-  { name: 'Yasmine Omar',    location: 'Luxor',    capacity: 500 },
-  { name: 'Karim Ibrahim',   location: 'Aswan',   capacity: 500 },
+  { name: 'Abo tarek', location: 'Giza', capacity: 500 },
+  { name: 'Sara Ali', location: 'Cairo', capacity: 500 },
+  { name: 'Mohamed Tarek', location: 'Alexandria', capacity: 500 },
+  { name: 'Yasmine Omar', location: 'Luxor', capacity: 500 },
+  { name: 'Karim Ibrahim', location: 'Aswan', capacity: 500 },
 ];
 
-
 const STAFF_DATA = [
-  { fullName: 'Ahmed Hassan',    email: 'ahmed@restaurant.com',   role: 'cashier' },
-  { fullName: 'Sara Ali',        email: 'sara@restaurant.com',    role: 'cashier' },
-  { fullName: 'Mohamed Tarek',   email: 'mohamed@restaurant.com', role: 'cashier' },
-  { fullName: 'Yasmine Omar',    email: 'yasmine@restaurant.com', role: 'cashier' },
-  { fullName: 'Karim Ibrahim',   email: 'karim@restaurant.com',   role: 'cashier' },
+  { fullName: 'Ahmed Hassan', email: 'ahmed@restaurant.com', role: 'cashier' },
+  { fullName: 'Sara Ali', email: 'sara@restaurant.com', role: 'cashier' },
+  {
+    fullName: 'Mohamed Tarek',
+    email: 'mohamed@restaurant.com',
+    role: 'cashier',
+  },
+  {
+    fullName: 'Yasmine Omar',
+    email: 'yasmine@restaurant.com',
+    role: 'cashier',
+  },
+  { fullName: 'Karim Ibrahim', email: 'karim@restaurant.com', role: 'cashier' },
 ];
 
 const MENU_DATA = [
-  { name: 'koshary',   price: 40, category: 'egyptian food' },
-  { name: 'pasta',    price: 50, category: 'pasta' },
-  { name: 'fries',       price: 10,  category: 'starter'     },
-  { name: 'meat',    price: 100, category: 'main course' },
-  { name: 'land',        price: 100, category: 'main course' },
-  { name: 'rice',    price: 15, category: 'main course' },
-  { name: 'ice cream',           price: 30,  category: 'dessert'     },
-  { name: 'bread',       price: 5,  category: 'starter'     },
-  { name: 'juice',        price: 10,  category: 'Beverages'   },
-  { name: 'cake',price: 20,  category: 'Dessert'     },
+  { name: 'koshary', price: 40, category: 'egyptian food' },
+  { name: 'pasta', price: 50, category: 'pasta' },
+  { name: 'fries', price: 10, category: 'starter' },
+  { name: 'meat', price: 100, category: 'main course' },
+  { name: 'land', price: 100, category: 'main course' },
+  { name: 'rice', price: 15, category: 'main course' },
+  { name: 'ice cream', price: 30, category: 'dessert' },
+  { name: 'bread', price: 5, category: 'starter' },
+  { name: 'juice', price: 10, category: 'Beverages' },
+  { name: 'cake', price: 20, category: 'Dessert' },
 ];
 
 // ─── Main seeder function ─────────────────────────────────────────────────────
@@ -129,10 +142,12 @@ async function seed() {
     logger: ['error', 'warn'],
   });
 
-  const userModel  = app.get<Model<User>>(getModelToken(User.name));
-  const menuModel  = app.get<Model<MenuItem>>(getModelToken(MenuItem.name));
+  const userModel = app.get<Model<User>>(getModelToken(User.name));
+  const menuModel = app.get<Model<MenuItem>>(getModelToken(MenuItem.name));
   const orderModel = app.get<Model<Order>>(getModelToken(Order.name));
-  const restaurantModel = app.get<Model<Restaurant>>(getModelToken(Restaurant.name));
+  const restaurantModel = app.get<Model<Restaurant>>(
+    getModelToken(Restaurant.name),
+  );
 
   // ── Clear collections ──────────────────────────────────────────────────────
   console.log('Clearing existing seed data...');
@@ -144,25 +159,22 @@ async function seed() {
   // ── Seed admin ─────────────────────────────────────────────────────────────
   console.log('Creating admin user...');
   const adminPassword = await bcrypt.hash('admin123', 10);
-  try{
-  await userModel.create({
-    fullName: 'Mohamed',
-    email: 'mohamed@mail.com',
-    password: adminPassword,
-    role: 'admin',
-  })
-
-} catch (error) {
+  try {
+    await userModel.create({
+      fullName: 'Mohamed',
+      email: 'mohamed@mail.com',
+      password: adminPassword,
+      role: 'admin',
+    });
+  } catch (error) {
     console.log(error);
   }
 
   // ── Seed restaurants ─────────────────────────────────────────────────────────────
-  try{
+  try {
     console.log('Creating 5 restaurants...');
-  const restaurantsDocs = await restaurantModel.insertMany(
-    RESTAURANTS_DATA,
-  );
-}catch (error) {
+    const restaurantsDocs = await restaurantModel.insertMany(RESTAURANTS_DATA);
+  } catch (error) {
     console.log(error);
   }
 
@@ -195,7 +207,11 @@ async function seed() {
       pickedMenuItems.add(id);
 
       const qty = randomBetween(1, 3);
-      items.push({ menuItemId: menuItem._id, quantity: qty, price: menuItem.price });
+      items.push({
+        menuItemId: menuItem._id,
+        quantity: qty,
+        price: menuItem.price,
+      });
       total += menuItem.price * qty;
     }
 

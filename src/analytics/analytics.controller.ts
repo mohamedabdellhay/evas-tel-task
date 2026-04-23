@@ -18,7 +18,7 @@ export class AnalyticsController {
   constructor(private readonly analyticsService: AnalyticsService) {}
 
   @Get('top-performers')
-  @Roles('admin', 'owner')
+  @Roles('admin', 'manager')
   @ApiOperation({
     summary: 'Get top performing waiters',
   })

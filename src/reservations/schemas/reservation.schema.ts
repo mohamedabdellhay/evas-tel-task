@@ -6,7 +6,6 @@ export type ReservationDocument = HydratedDocument<Reservation>;
 
 @Schema({ timestamps: true })
 export class Reservation {
-
   @Prop({ type: Types.ObjectId, ref: 'Restaurant', required: true })
   @ApiProperty({ description: 'The ID of the restaurant' })
   restaurantId: Types.ObjectId;
@@ -16,7 +15,9 @@ export class Reservation {
   userId: Types.ObjectId;
 
   @Prop({ type: String, required: true })
-  @ApiProperty({ description: 'The date of the reservation in YYYY-MM-DD format' })
+  @ApiProperty({
+    description: 'The date of the reservation in YYYY-MM-DD format',
+  })
   date: string; // YYYY-MM-DD format
 
   @Prop({ type: String, required: true })
@@ -27,7 +28,7 @@ export class Reservation {
   @ApiProperty({ description: 'The size of the party' })
   partySize: number;
 
-  @Prop({ type: String, default: "PENDING" })
+  @Prop({ type: String, default: 'PENDING' })
   @ApiProperty({ description: 'The status of the reservation' })
   status: string;
 

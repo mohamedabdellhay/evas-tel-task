@@ -11,10 +11,18 @@ describe('RestaurantsService', () => {
     this.data = dto;
     this.save = jest.fn().mockResolvedValue({ ...dto, _id: 'id' });
   }
-  mockRestaurantModel.find = jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue([]) });
-  mockRestaurantModel.findById = jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
-  mockRestaurantModel.findByIdAndUpdate = jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
-  mockRestaurantModel.findByIdAndDelete = jest.fn().mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
+  mockRestaurantModel.find = jest
+    .fn()
+    .mockReturnValue({ exec: jest.fn().mockResolvedValue([]) });
+  mockRestaurantModel.findById = jest
+    .fn()
+    .mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
+  mockRestaurantModel.findByIdAndUpdate = jest
+    .fn()
+    .mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
+  mockRestaurantModel.findByIdAndDelete = jest
+    .fn()
+    .mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
   mockRestaurantModel.exists = jest.fn().mockResolvedValue(true);
 
   const mockCacheManager = {

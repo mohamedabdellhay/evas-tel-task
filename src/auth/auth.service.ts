@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
@@ -31,8 +35,7 @@ export class AuthService {
     return { access_token: this.jwtService.sign(payload) };
   }
 
-
-    async register(registerDto: RegisterDto) {
+  async register(registerDto: RegisterDto) {
     const existingUser = await this.userModel.findOne({
       email: registerDto.email,
     });

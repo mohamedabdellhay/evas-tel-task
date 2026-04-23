@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CacheModule } from '@nestjs/cache-manager';
+import { ScheduleModule } from '@nestjs/schedule';
 
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
@@ -18,6 +19,9 @@ import { AnalyticsModule } from './analytics/analytics.module';
   imports: [
     // Configuration (global)
     ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
+
+    // Scheduling
+    ScheduleModule.forRoot(),
 
     // Redis Cache (global)
     CacheModule.registerAsync({

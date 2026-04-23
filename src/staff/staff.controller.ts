@@ -1,5 +1,10 @@
 import { Controller, Post, Get, Body, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { StaffService } from './staff.service';
 import { CreateStaffDto } from './dto/create-staff.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -25,7 +30,10 @@ export class StaffController {
   @Get()
   @Roles('admin', 'owner')
   @ApiOperation({ summary: 'Get all staff members' })
-  @ApiResponse({ status: 200, description: 'List of all staff members (cashiers and owners).' })
+  @ApiResponse({
+    status: 200,
+    description: 'List of all staff members (cashiers and owners).',
+  })
   findAll() {
     return this.staffService.findAll();
   }

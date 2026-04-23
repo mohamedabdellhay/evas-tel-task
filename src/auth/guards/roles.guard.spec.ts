@@ -54,7 +54,9 @@ describe('RolesGuard', () => {
     });
 
     it('should throw ForbiddenException if user does not have required role', () => {
-      jest.spyOn(reflector, 'getAllAndOverride').mockReturnValue(['superadmin']);
+      jest
+        .spyOn(reflector, 'getAllAndOverride')
+        .mockReturnValue(['superadmin']);
       expect(() => guard.canActivate(mockContext as ExecutionContext)).toThrow(
         ForbiddenException,
       );

@@ -6,7 +6,9 @@ import { Restaurant, RestaurantSchema } from './schemas/restaurant.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Restaurant.name, schema: RestaurantSchema }]),
+    MongooseModule.forFeature([
+      { name: Restaurant.name, schema: RestaurantSchema },
+    ]),
   ],
   controllers: [RestaurantsController],
   providers: [RestaurantsService],
