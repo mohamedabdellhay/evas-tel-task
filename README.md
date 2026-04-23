@@ -32,6 +32,15 @@ API docs will be available at:
 
 - `http://localhost:3000/docs`
 
+## Cron job
+
+The app includes a scheduled cron job for orders:
+
+- Runs every day at midnight.
+- Finds orders older than 30 days.
+- Marks them as archived by setting `isArchived` to `true`.
+- Writes log entries for success/failure in the app logs.
+
 ## Seed data
 
 Seed sample data from inside the app container:
